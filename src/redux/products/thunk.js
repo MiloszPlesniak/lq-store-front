@@ -29,18 +29,39 @@ export const getProduct = createAsyncThunk("product/getProduct", async (id) => {
 export const calculateProduct = createAsyncThunk(
   "product/calculateProduct",
   async (product) => {
-    
-
     try {
       const data = await axios.post(
         "http://localhost:3100/api/products/calculate",
         product
       );
+      console.log(product);
+
       const response = data.data.message;
 
       return response;
     } catch (error) {
       console.log(error);
+
+      throw error;
+    }
+  }
+);
+
+export const editProduct = createAsyncThunk(
+  "product/editProduct",
+  async (obj, thunkApi) => {
+    try {
+      const data = await axios.patch(
+        "http://localhost:3100/api/products/" + obj.id,
+        obj.product
+      );
+      console.log(data.data);
+
+      return data.data;
+    } catch (error) {
+      console.log(error);
+
+      thunkApi.rejectWithValue(error);
       throw error;
     }
   }

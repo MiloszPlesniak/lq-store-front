@@ -42,6 +42,9 @@ export const productsSlice = createSlice({
         state.caclulation = null;
       })
       .addCase(calculateProduct.rejected, (state, { payload }) => {
+       
+        
+        
         state.isLoading = false;
         state.error = payload;
 

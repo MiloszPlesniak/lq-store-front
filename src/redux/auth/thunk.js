@@ -47,7 +47,6 @@ export const registerUser = createAsyncThunk(
   }
 );
 
-
 export const loginUser = createAsyncThunk(
   "auth/login",
   async (credential, thunkAPI) => {
@@ -93,7 +92,7 @@ export const refreshUser = createAsyncThunk(
   "auth/refresh",
   async (userId, thunkAPI) => {
     const state = thunkAPI.getState();
-    const persistedToken = state.auth.token; 
+    const persistedToken = state.auth.token;
     if (persistedToken === null) {
       return thunkAPI.rejectWithValue("Unable to fetch user, no token");
     }
@@ -107,3 +106,11 @@ export const refreshUser = createAsyncThunk(
     }
   }
 );
+export const getUsersList = createAsyncThunk("auth/usersList", async (_,thunkAPI) => {
+  try {
+    const res=await axios.get("http://localhost:3100/api/users");
+    return res.data;    
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error);
+  }
+});

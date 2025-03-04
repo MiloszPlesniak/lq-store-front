@@ -20,6 +20,9 @@ const SideMenu = () => {
   const dispatch = useDispatch();
   const userId = useSelector(selectUserId);
   const nickname = useSelector(selectUser).alias;
+  const rank = useSelector(selectUser).accountType;
+  console.log(rank);
+  
   const logOutHandler = () => {
     dispatch(logOut(userId));
   };
@@ -63,6 +66,12 @@ const SideMenu = () => {
             <Link to={"/account/shopingCart"}>Koszyk</Link>{" "}
             <IoIosArrowForward />
           </li>
+          {rank === "GOD" ? (
+            <li className={sideMenu__item}>
+              <Link to={"/account/adminPanel"}>settings</Link>{" "}
+              <IoIosArrowForward />
+            </li>
+          ) : null}
         </ul>
         <button
           className={sideMenu__logOutBtn}

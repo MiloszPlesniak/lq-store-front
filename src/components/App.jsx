@@ -10,11 +10,13 @@ import { refreshUser } from "../redux/auth/thunk";
 import { selectUserId } from "../redux/auth/selectors";
 import SingleProduct from "../pages/singleProduct/SingleProduct";
 import PrivateRoute from "../helpers/PrivateRoute";
+import {AdminRoute} from "../helpers/PrivateRoute";
 import RestrictedRoute from "../helpers/RestrictedRoute";
 import SideMenu from "./sideMenu/SideMenu";
 import AccountPage from "../pages/accountPage/AccountPage";
 import UserData from "./userData/UserData";
 import ShopingCart from "./shopingCart/ShopingCart";
+import AdminPanel from "../pages/adminPanel/AdminPanel";
 import { selectSideMenuOpen } from "../redux/settings/selectors";
 function App() {
   const userId = useSelector(selectUserId);
@@ -74,6 +76,12 @@ function App() {
             <Route path="preferences" element={<h1>Preferences</h1>}></Route>
             <Route path="faq" element={<h1>FAQ</h1>}></Route>
             <Route path="shopingCart" element={<ShopingCart />}></Route>
+            <Route
+              path="adminPanel"
+              element={
+                <AdminRoute redirectTo="/products" component={<AdminPanel />} />
+              }
+            ></Route>
           </Route>
         </Routes>
         {isSideMenuOpen && <SideMenu />}

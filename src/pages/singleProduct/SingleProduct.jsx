@@ -39,7 +39,7 @@ const SingleProduct = () => {
   const { pathname } = useLocation();
   const productId = pathname.replace("/products/", "");
   const [power, setPower] = useState(12);
-  const [aroma, setAroma] = useState(Number(product.dosage));
+  const [aroma, setAroma] = useState(0);
   const [rotation, setRotation] = useState(-180);
   const [buyAnimation,setBuyAnimation]=useState(false);
   const dispatch = useDispatch();
@@ -73,8 +73,10 @@ const SingleProduct = () => {
   };
   //pobieramy dane produktu z serwera
   useEffect(() => {
-    setAroma(Number(product.dosage));
-    dispatch(getProductsList());
+    setAroma(0);
+    // dispatch(getProductsList());????????
+    console.log("efect");
+    
     dispatch(getProduct(productId));
     dispatch(
       calculateProduct({
@@ -119,6 +121,7 @@ const SingleProduct = () => {
     setTimeout(() => {setBuyAnimation(false)}, 1600);
   };
   
+console.log(aroma);
 
   return (
     <div>
@@ -194,7 +197,7 @@ const SingleProduct = () => {
                 <span>60ml</span>
               </div>
             </label>
-            {price.priceForOneBottle ? (
+            {aroma < 1? <p>Wybierz ilość aromatu zalecana ilość {product.dosage}% </p>:(price.priceForOneBottle ? (
               <div className={buyForm__priceBox}>
                 <p className={buyForm__price}>
                   {price.priceForOneBottle ? price.priceForOneBottle.sum : "-"}
@@ -212,7 +215,7 @@ const SingleProduct = () => {
               </div>
             ) : (
               <p>Brak w Magazynie </p>
-            )}
+            ))}
           </form>
         </div>
       </section>
