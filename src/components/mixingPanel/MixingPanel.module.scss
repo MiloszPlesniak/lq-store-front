@@ -1,0 +1,55 @@
+.mixingPanel {
+  // display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5%;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  width: 80vw;
+  height: 70vh;
+  z-index: 2;
+  color: black;
+  
+  &__list {
+  }
+  &__item {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+
+    align-items: center;
+    padding: 0px 30px;
+    &:first-child {
+      color: #fff;
+      position: sticky;
+      background-color: rgb(33, 33, 33);
+      padding: 0px;
+      top: -1px;
+      left: 400px;
+      padding: 20px 30px;
+      margin-right: -2px;
+    }
+    & > figure {
+    }
+  }
+  &__img {
+    width: 100px;
+  }
+  &__descryption {
+    & > span {
+    }
+  }
+  &__closeBtn {
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    font-size: 40px;
+    // color: #fff;
+    cursor: pointer;
+    transform: rotate(45deg);
+  }
+}

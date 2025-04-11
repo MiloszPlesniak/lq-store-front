@@ -21,7 +21,7 @@ const SideMenu = () => {
   const userId = useSelector(selectUserId);
   const nickname = useSelector(selectUser).alias;
   const rank = useSelector(selectUser).accountType;
-  console.log(rank);
+  
   
   const logOutHandler = () => {
     dispatch(logOut(userId));

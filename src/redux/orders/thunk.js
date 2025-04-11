@@ -18,9 +18,13 @@ export const getOrdersList = createAsyncThunk(
 export const addOrder = createAsyncThunk(
   "orders/addOrder",
   async (orderList,thunkApi) => {
-    console.log(thunkApi.getState());
+    
+    
+
     const state=thunkApi.getState();
     try {
+      
+      
       const order = await axios.post(
         "http://localhost:3100/api/orders/"+state.auth.userId,
         orderList

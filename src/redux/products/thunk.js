@@ -34,8 +34,7 @@ export const calculateProduct = createAsyncThunk(
         "http://localhost:3100/api/products/calculate",
         product
       );
-      console.log(product);
-
+      
       const response = data.data.message;
 
       return response;
@@ -55,7 +54,7 @@ export const editProduct = createAsyncThunk(
         "http://localhost:3100/api/products/" + obj.id,
         obj.product
       );
-      console.log(data.data);
+      
 
       return data.data;
     } catch (error) {

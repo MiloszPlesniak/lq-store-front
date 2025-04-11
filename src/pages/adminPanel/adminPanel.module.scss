@@ -1,8 +1,35 @@
-.adminPanel{
-    display: block;
-    &__title{
-        font-size: 1.5rem;
-        font-weight: 700;
-        margin-bottom: 1rem;
+.adminPanel {
+  display: block;
+  margin-bottom: 200px;
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  &__tableItem {
+    position: relative;
+    width: 70%;
+    max-width: 600px;
+    background-color: rgb(0, 0, 0, 0.85);
+
+    color: white;
+    border: 1px solid white;
+    border-bottom: none;
+    margin: 0px auto;
+    padding: 2px;
+    &::after {
+      position: absolute;
+      content: ">";
+      color: white;
+      font-size: 30px;
+      top: -8px;
+      right: 5px;
+      transform: rotate(90deg);
+      cursor: pointer;
     }
+
+    &:last-child {
+      border-bottom: 1px solid black;
+    }
+  }
 }

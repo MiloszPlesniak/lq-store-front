@@ -1,0 +1,48 @@
+.userTableItem {
+  background-color: rgb(128, 128, 128);
+  color: white;
+  border-top: 1px solid black;
+  position: relative;
+  padding: 5px;
+  & > p::after {
+    position: absolute;
+    content: ">";
+    color: white;
+    font-size: 30px;
+    top: -8px;
+    right: 15px;
+    transform: rotate(90deg);
+    cursor: pointer;
+  }
+  &__list {
+    background-color: white;
+    color: black;
+  }
+  &__item {
+    border-top: 1px solid black;
+    border-bottom: none;
+    position: relative;
+    padding: 2.5px;
+    &:nth-child(2) {
+      & > ul {
+        border: none;
+        & > li {
+          border-top: 1px solid black;
+        }
+      }
+      &::after {
+        position: absolute;
+        content: ">";
+        color: black;
+        font-size: 30px;
+        top: -8px;
+        right: 15px;
+        transform: rotate(90deg);
+        cursor: pointer;
+      }
+    }
+    &:last-child {
+      border-top: 1px solid black;
+    }
+  }
+}

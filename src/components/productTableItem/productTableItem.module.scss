@@ -1,0 +1,39 @@
+.productTableItem{
+    background-color: grey;
+    position: relative;
+    padding: 5px;
+    border-bottom: 1px solid black;
+    &>p>button{
+        background-color: transparent;
+        fill: white;
+        color: white;
+        border: none;
+        margin-left: 10px;
+        cursor: pointer;
+    }
+    &::after {
+        position: absolute;
+        content: ">";
+        color: white;
+        font-size: 30px;
+        top: -8px;
+        right: 15px;
+        transform: rotate(90deg);
+        cursor: pointer;
+      }
+      &__list {
+        background-color: white;
+        color: black;
+      }
+      &__item {
+        border-top: 1px solid black;
+        border-bottom: none;
+        position: relative;
+        padding: 2.5px;
+        overflow-wrap: anywhere;
+       
+        &:last-child {
+          border-top: 1px solid black;
+        }
+      }
+}

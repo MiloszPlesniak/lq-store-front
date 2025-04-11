@@ -24,8 +24,8 @@ function App() {
   const isSideMenuOpen = useSelector(selectSideMenuOpen);
   useEffect(() => {
     dispatch(refreshUser(userId));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch]);
+    
+  }, [dispatch,userId]);
   return (
     <>
       <Navigation />

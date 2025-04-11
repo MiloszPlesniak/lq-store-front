@@ -14,12 +14,9 @@ export const AdminRoute = ({ component: Component, redirectTo = "/" }) => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const isRefreshing = useSelector(selectIsRefreshing);
   const admin = useSelector(selectUser).accountType === "GOD";
-  console.log(admin, "admin");
 
   const shouldRedirect = !isLoggedIn && !isRefreshing;
-  console.log(shouldRedirect, "shouldRedirect");
-  console.log(shouldRedirect || !admin);
-  
+
   return shouldRedirect || !admin ? <Navigate to={redirectTo} /> : Component;
 };
 

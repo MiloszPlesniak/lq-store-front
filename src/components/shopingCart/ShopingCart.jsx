@@ -48,7 +48,8 @@ const ShopingCart = () => {
     });
     
 
-    const comment = delivery ? fixedSum + 19.9 : fixedSum;
+    const comment = delivery ? (fixedSum + 19.9).toFixed(2) : fixedSum;
+
 
     const orderList = {
       order,

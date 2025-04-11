@@ -1,0 +1,67 @@
+.orderTableItem {
+  background-color: grey;
+  position: relative;
+  padding: 5px;
+  border-bottom: 1px solid black;
+  & > p > button {
+    background-color: transparent;
+    fill: white;
+    color: white;
+    border: none;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  &::after {
+    position: absolute;
+    content: ">";
+    color: white;
+    font-size: 30px;
+    top: -8px;
+    right: 15px;
+    transform: rotate(90deg);
+    cursor: pointer;
+  }
+  &__list {
+    background-color: white;
+    color: black;
+  }
+  &__icon{
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  &__item {
+    position: relative;
+    border-top: 1px solid black;
+    border-bottom: none;
+    position: relative;
+    padding: 2.5px;
+    overflow-wrap: anywhere;
+    &:nth-child(3)::after {
+      position: absolute;
+      content: ">";
+      color: black;
+      font-size: 30px;
+      top: -8px;
+      right: 15px;
+      transform: rotate(90deg);
+      cursor: pointer;
+    }
+    &:nth-child(4)::after {
+      position: absolute;
+      content: ">";
+      color: black;
+      font-size: 30px;
+      top: -8px;
+      right: 15px;
+      transform: rotate(90deg);
+      cursor: pointer;
+    }
+
+    &:last-child {
+      border-top: 1px solid black;
+    }
+  }
+}

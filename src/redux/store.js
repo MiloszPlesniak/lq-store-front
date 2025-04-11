@@ -19,7 +19,7 @@ import ordersReducer from "./orders/slice";
 const authPersistConfig = {
   key: "auth",
   storage,
-  whitelist: ["token", "userId"],
+  whitelist: ["token", "userId","isLoggedIn","isRefreshing","user"],
 };
 
 const ordersPersistConfig = {

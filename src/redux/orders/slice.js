@@ -5,7 +5,7 @@ const initialState = {
   orders: [],
   error: null,
   isLoading: false,
-  orderList: [],
+  
 };
 
 export const ordersSlice = createSlice({

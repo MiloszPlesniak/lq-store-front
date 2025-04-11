@@ -13,6 +13,11 @@ const initialState = {
 export const productsSlice = createSlice({
   name: "product",
   initialState,
+  reducers: {
+    itsLoading: (state, { payload }) => {
+      state.isLoading = true;
+    },
+  },
   extraReducers: (buider) => {
     buider
       .addCase(getProductsList.pending, (state, { payload }) => {
@@ -42,9 +47,6 @@ export const productsSlice = createSlice({
         state.caclulation = null;
       })
       .addCase(calculateProduct.rejected, (state, { payload }) => {
-       
-        
-        
         state.isLoading = false;
         state.error = payload;
 
@@ -57,5 +59,6 @@ export const productsSlice = createSlice({
       });
   },
 });
+export const { itsLoading } = productsSlice.actions;
 export default productsSlice.reducer;
 // przy każdym wejsciu na mena bedzie pobierana lista produktów

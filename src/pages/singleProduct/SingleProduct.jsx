@@ -6,9 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 import { LuShoppingCart } from "react-icons/lu";
 import { FaArrowRight, FaCheck } from "react-icons/fa";
+import { RiLoader2Line } from "react-icons/ri";
 import { getProduct, getProductsList } from "../../redux/products/thunk";
 import { calculateProduct } from "../../redux/products/thunk";
 import { addToCart } from "../../redux/orders/slice";
+import { itsLoading } from "../../redux/products/slice";
 import {
   selectProduct,
   selectPrice,
@@ -29,6 +31,7 @@ const SingleProduct = () => {
     buyForm__priceBox,
     buyForm__btn,
     buyForm__buy,
+    buyForm__loadingIcon,
     buyForm__toggle,
     buyForm__nicType,
     aboutProduct,
@@ -41,7 +44,7 @@ const SingleProduct = () => {
   const [power, setPower] = useState(12);
   const [aroma, setAroma] = useState(0);
   const [rotation, setRotation] = useState(-180);
-  const [buyAnimation,setBuyAnimation]=useState(false);
+  const [buyAnimation, setBuyAnimation] = useState(false);
   const dispatch = useDispatch();
   const price = useSelector(selectPrice);
   const isLoading = useSelector(selectIsLoading);
@@ -69,34 +72,32 @@ const SingleProduct = () => {
   const onChangehandlerThrottled = useRef(throttle(onChangehandler, 2000));
   //definiujemy funkcję, która będzie wywoływać funkcję onChangehandlerThrottled
   const onChangehandlerThrottledReff = async (e) => {
+    dispatch(itsLoading());
     await onChangehandlerThrottled.current(e);
   };
   //pobieramy dane produktu z serwera
   useEffect(() => {
-    setAroma(0);
-    // dispatch(getProductsList());????????
-    console.log("efect");
-    
+    dispatch(getProductsList());
+    setAroma(product.dosage);
+
     dispatch(getProduct(productId));
-    dispatch(
-      calculateProduct({
-        id: productId,
-        size: 10,
-        power: 12,
-        amount: 1,
-        nicotineType: "sól",
-        dosage: Number(product.dosage),
-      })
-    );
+    // dispatch(
+    //   calculateProduct({
+    //     id: productId,
+    //     size: 60,
+    //     power: 12,
+    //     amount: 1,
+    //     nicotineType: "sól",
+    //     dosage: Number(product.dosage),
+    //   })
+    // );
   }, [dispatch, product.dosage, productId]);
 
   const toggleRotation = () => {
     setRotation((prevRotation) => prevRotation + 180);
   };
 
-  
   const submitHandler = (e) => {
-    
     e.preventDefault();
     const item = {
       img: product.imgUrl,
@@ -111,17 +112,14 @@ const SingleProduct = () => {
       price: price.priceForOneBottle.sum,
       nicotineType: e.target.nicotineType.checked ? "zasada" : "sól",
     };
-    
-    
-    
-    
+
     dispatch(addToCart(item));
-   
-    setBuyAnimation(true)
-    setTimeout(() => {setBuyAnimation(false)}, 1600);
+
+    setBuyAnimation(true);
+    setTimeout(() => {
+      setBuyAnimation(false);
+    }, 1600);
   };
-  
-console.log(aroma);
 
   return (
     <div>
@@ -161,7 +159,7 @@ console.log(aroma);
                 name="aroma"
                 min="5"
                 max="30"
-                defaultValue={aroma}
+                defaultValue={product.dosage}
               />
             </label>
             <label className={buyForm__nicType} htmlFor="nicotineType">
@@ -185,37 +183,50 @@ console.log(aroma);
             </label>
             <label className={buyForm__select} htmlFor="ml">
               <div>
-                <input type="radio" name="ml" value={10} defaultChecked />
+                <input type="radio" name="ml" value={10} required />
                 <span>10ml</span>
               </div>
               <div>
-                <input type="radio" name="ml" value={30} />
+                <input type="radio" name="ml" value={30} required />
                 <span>30ml</span>
               </div>
               <div>
-                <input type="radio" name="ml" value={60} />
+                <input type="radio" name="ml" value={60} required />
                 <span>60ml</span>
               </div>
             </label>
-            {aroma < 1? <p>Wybierz ilość aromatu zalecana ilość {product.dosage}% </p>:(price.priceForOneBottle ? (
+            {price.priceForOneBottle ? (
               <div className={buyForm__priceBox}>
                 <p className={buyForm__price}>
-                  {price.priceForOneBottle ? price.priceForOneBottle.sum : "-"}
+                  {price.priceForOneBottle
+                    ? price.priceForOneBottle.sum + " zł"
+                    : "-"}
                 </p>
-                <button
-                  disabled={isLoading ? true : false}
-                  className={buyForm__btn}
-                  type="submit"
-                >
-                  <LuShoppingCart color="#fff" size={25} />
-                  <div className={clsx(buyForm__btn,buyAnimation&&buyForm__buy)} >
-                    <FaCheck color="#fff" size={25} />
+                {!isLoading ? (
+                  <button
+                    disabled={isLoading ? true : false}
+                    className={buyForm__btn}
+                    type="submit"
+                  >
+                    <LuShoppingCart color="#fff" size={25} />
+                    <div
+                      className={clsx(
+                        buyForm__btn,
+                        buyAnimation && buyForm__buy
+                      )}
+                    >
+                      <FaCheck color="#fff" size={25} />
+                    </div>
+                  </button>
+                ) : (
+                  <div className={buyForm__loadingIcon}>
+                    <RiLoader2Line />
                   </div>
-                </button>
+                )}
               </div>
             ) : (
               <p>Brak w Magazynie </p>
-            ))}
+            )}
           </form>
         </div>
       </section>
